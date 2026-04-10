@@ -1,12 +1,7 @@
 """
-🍽️ AI Data Analytics Dashboard — Zomato Restaurant Analysis
-============================================================
-An interactive Streamlit dashboard powered by AI that lets you
-explore Zomato restaurant data through charts, filters, and
-natural language queries.
-
-Author: Riyaz
-Tech Stack: Python, Streamlit, SQLite, Plotly, OpenAI
+app.py - AI Data Analytics Dashboard
+Streamlit dashboard for exploring Zomato restaurant data with
+interactive charts, filters, and SQL-based insights.
 """
 
 import streamlit as st
@@ -131,10 +126,7 @@ def get_connection():
 
 @st.cache_data(ttl=600)
 def load_all_data():
-    """
-    Load the full dataset once and cache it.
-    TTL=600 means the cache expires after 10 minutes.
-    """
+    """Load the full dataset from SQLite."""
     conn = get_connection()
     df = pd.read_sql("SELECT * FROM restaurants", conn)
     return df
@@ -152,11 +144,7 @@ def get_unique_areas():
 
 @st.cache_data(ttl=600)
 def get_unique_cuisines():
-    """
-    Get all unique INDIVIDUAL cuisine types.
-    The 'cuisine' column has comma-separated values like "Chinese, Bakery, Pizza"
-    We split them and collect unique individual cuisines.
-    """
+    """Get unique individual cuisine types from comma-separated values."""
     conn = get_connection()
     cuisines_raw = pd.read_sql("SELECT DISTINCT cuisine FROM restaurants", conn)
     
@@ -181,27 +169,23 @@ def get_unique_price_categories():
 
 
 def filter_data(df, area, cuisine, price_category, min_rating, max_rating):
-    """
-    Apply all sidebar filters to the dataframe.
-    Returns a filtered copy of the data.
-    """
+    """Apply sidebar filters and return filtered dataframe."""
     filtered = df.copy()
     
-    # Filter by area
     if area != "All Areas":
         filtered = filtered[filtered["area"] == area]
     
-    # Filter by cuisine (check if the cuisine string CONTAINS the selected type)
+
     if cuisine != "All Cuisines":
         filtered = filtered[
             filtered["cuisine"].str.contains(cuisine, case=False, na=False)
         ]
     
-    # Filter by price category
+
     if price_category != "All Prices":
         filtered = filtered[filtered["price_category"] == price_category]
     
-    # Filter by rating range
+
     filtered = filtered[
         (filtered["ratings"] >= min_rating) & (filtered["ratings"] <= max_rating)
     ]
