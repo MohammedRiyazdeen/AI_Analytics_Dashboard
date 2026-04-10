@@ -56,7 +56,7 @@ This project uses the **Zomato Hyderabad Restaurants** dataset containing **658 
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/AI_Analytics_Dashboard.git
+git clone https://github.com/MohammedRiyazdeen/AI_Analytics_Dashboard.git
 cd AI_Analytics_Dashboard
 
 # 2. Create a virtual environment
@@ -102,11 +102,9 @@ AI_Analytics_Dashboard/
 ├── app.py              # Main Streamlit dashboard
 ├── load_data.py        # Data pipeline: CSV → SQLite
 ├── explore.py          # SQL exploration queries
-├── ai_service.py       # AI text-to-SQL service
 ├── zomata.csv          # Raw dataset
 ├── dashboard.db        # SQLite database (auto-generated)
 ├── requirements.txt    # Python dependencies
-├── .env                # Environment variables
 ├── .gitignore          # Git ignore rules
 ├── .streamlit/
 │   └── config.toml     # Streamlit theme configuration
