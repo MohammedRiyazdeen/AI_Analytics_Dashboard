@@ -9,8 +9,7 @@ import pandas as pd
 import sqlite3
 import plotly.express as px
 
-
-# ─── Page Configuration ───────────────────────────────────────
+# ─── Page Configuration ─────────────────────────────────────────────
 st.set_page_config(
     page_title="📊 AI Data Dashboard",
     page_icon="📊",
@@ -18,8 +17,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-
-# ─── Custom CSS for Premium Look ─────────────────────────────
+# ─── Custom CSS for Premium Look ────────────────────────────────────
 st.markdown("""
 <style>
     /* ── Main background ── */
@@ -116,11 +114,7 @@ st.markdown("""
 # ─── Database Connection (Cached) ────────────────────────────
 @st.cache_resource
 def get_connection():
-    """
-    Create a database connection.
-    @st.cache_resource = cache this so it doesn't reconnect every time
-    a filter changes. This makes the app FAST.
-    """
+    """Create a cached database connection."""
     return sqlite3.connect("dashboard.db", check_same_thread=False)
 
 
@@ -193,7 +187,7 @@ def filter_data(df, area, cuisine, price_category, min_rating, max_rating):
     return filtered
 
 
-# ─── Main App ─────────────────────────────────────────────────
+# ─── Main App ───────────────────────────────────────────────────
 def main():
     # Load data
     df = load_all_data()
@@ -549,7 +543,7 @@ def main():
     else:
         st.warning("😕 No restaurants match your filters. Try adjusting them!")
 
-    # ─── SQL QUERIES SECTION ─────────────────────────────────
+    # ─── SQL QUERIES SECTION ──────────────────────────────────
     st.markdown("---")
     st.markdown("### 🔬 SQL Queries — Data Analytics")
     st.markdown("*Each query below demonstrates a real SQL technique. The query is shown first, followed by the result.*")
@@ -698,7 +692,7 @@ LIMIT 10;"""
     df5 = pd.read_sql(query5, conn)
     st.dataframe(df5, use_container_width=True, hide_index=True)
 
-    # ─── Footer ──────────────────────────────────────────────
+    # ─── Footer ───────────────────────────────────────────────
     st.markdown("---")
     st.markdown(
         "<p style='text-align:center; color:#555; font-size:0.8rem;'>"
